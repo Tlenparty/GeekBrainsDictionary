@@ -3,23 +3,24 @@ package com.geekbrains.geekbrainsdictionary.view.main
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.geekbrainsdictionary.R
 import com.geekbrains.geekbrainsdictionary.databinding.AcMainBinding
 import com.geekbrains.geekbrainsdictionary.model.data.AppState
-import com.geekbrains.geekbrainsdictionary.presenter.Presenter
 import com.geekbrains.geekbrainsdictionary.view.base.BaseActivity
 import com.geekbrains.geekbrainsdictionary.view.base.View
 import com.geekbrains.geekbrainsdictionary.view.main.adapter_list.MainAdapter
 import com.geekbrains.geekbrainsdictionary.view.search.SearchDialogFragment
 
-class MainActivity : BaseActivity<AppState>() {
+class MainActivity : BaseActivity<AppState>(), View {
 
     private lateinit var binding: AcMainBinding
     private var adapter: MainAdapter? = null
 
-    override fun createPresenter(): Presenter<AppState, View> {
-        return MainPresenter()
+    // Создаем модель
+    override val model:MainViewModel by lazy {
+        ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,15 +32,15 @@ class MainActivity : BaseActivity<AppState>() {
             searchDialogFragment.setOnSearchClickListener(object :
                 SearchDialogFragment.OnSearchClickListener {
                 override fun onClick(searchWord: String) {
-                    presenter.getData(searchWord, true)
+                    model.getWordDescriptions(searchWord, true)
                 }
             })
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
 
         binding.mainActivityRecyclerview.layoutManager = LinearLayoutManager(applicationContext)
-        adapter =  MainAdapter { }
-        binding.mainActivityRecyclerview.adapter =adapter
+        adapter = MainAdapter { }
+        binding.mainActivityRecyclerview.adapter = adapter
     }
 
     override fun renderData(appState: AppState) {
@@ -74,7 +75,7 @@ class MainActivity : BaseActivity<AppState>() {
         showViewError()
         binding.errorTextview.text = error ?: getString(R.string.undefined_error)
         binding.reloadButton.setOnClickListener {
-            presenter.getData("hi", true)
+            model.getWordDescriptions("hi", true)
         }
     }
 

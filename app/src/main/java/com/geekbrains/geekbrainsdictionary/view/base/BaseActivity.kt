@@ -4,35 +4,24 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.geekbrains.geekbrainsdictionary.model.data.AppState
 import com.geekbrains.geekbrainsdictionary.presenter.Presenter
+import com.geekbrains.geekbrainsdictionary.view.viewmodel.BaseViewModel
 
 /**
  * Базовая View. Часть функционала каждого экрана будет общей (например, создание презентера),
  * поэтому имеет смысл вывести его в родительский класс:*/
 
-abstract class BaseActivity<T : AppState> : AppCompatActivity(), View {
-
-    // Храним ссылку на презентер (AppState,View)
-    protected lateinit var presenter: Presenter<T, View>
-
-    // Создание презентера (Похоже на Moxy)
-    protected abstract fun createPresenter(): Presenter<T, View>
-
-    abstract override fun renderData(appState: AppState)
+abstract class BaseActivity<T : AppState> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Создаем presenter
-        presenter = createPresenter()
+        // подписка на liveData
+        model.getStateLiveData().observe(this) { renderData(it) }
     }
 
-    override fun onStart() {
-        super.onStart()
-        presenter.attachView(this)
-    }
+    // В каждой Активити будет своя ViewModel, которая наследуется от BaseViewModel
+    abstract val model: BaseViewModel<T>
 
-    override fun onStop() {
-        super.onStop()
-        presenter.detachView(this)
-    }
+    // Каждая Активити будет отображать какие-то данные в соответствующем состоянии
+    abstract fun renderData(appState: T)
 
 }
