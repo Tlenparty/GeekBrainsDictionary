@@ -8,12 +8,10 @@ import com.geekbrains.geekbrainsdictionary.model.repository.RepositoryImplementa
 import com.geekbrains.geekbrainsdictionary.presenter.Interactor
 import com.geekbrains.geekbrainsdictionary.view.viewmodel.BaseViewModel
 import io.reactivex.observers.DisposableObserver
+import javax.inject.Inject
 
-class MainViewModel(
-    private val interactor: Interactor<AppState> = MainInteractor(
-        remoteRepository = RepositoryImplementation(DataSourceRemote()),
-        localRepository = RepositoryImplementation(DataSourceRemote())
-    )
+class MainViewModel @Inject constructor(
+    private val interactor: MainInteractor
 ) : BaseViewModel<AppState>() {
 
     // Когда вью подписывается на liveData запускем Rx-ое получение данных из интрактора
@@ -21,19 +19,22 @@ class MainViewModel(
     fun getWordDescriptions(word: String, isOnline: Boolean) {
         compositeDisposable.add(
             interactor.getData(word, isOnline)
-                .subscribeOn(schedulerProvider.io)
-                .observeOn(schedulerProvider.ui)
-                .doOnSubscribe {stateLiveData.value = AppState.Loading(null)} // Выполняется в самом начале
+                .subscribeOn(schedulerProvider.io) // получаем данные (getData на io)
+                .observeOn(schedulerProvider.ui) // все что ниже на ui thread
+                .doOnSubscribe {
+                    stateLiveData.value = AppState.Loading(null)
+                } // Выполняется в самом начале
                 .subscribeWith(getObserver())
         )
     }
 
-    private fun getObserver() = object : DisposableObserver<AppState>(){
+    private fun getObserver() = object : DisposableObserver<AppState>() {
         // Данные успешно загружены; сохраняем их и передаем во View (через
         // LiveData). View сама разберётся, как их отображать
         override fun onNext(appState: AppState) {
             stateLiveData.value = appState
         }
+
         // В случае ошибки передаём её в Activity таким же образом через LiveData
         override fun onError(e: Throwable) {
             stateLiveData.value = AppState.Error(e)

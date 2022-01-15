@@ -5,8 +5,9 @@ import com.geekbrains.geekbrainsdictionary.model.data.DataModel
 import com.geekbrains.geekbrainsdictionary.model.repository.Repository
 import com.geekbrains.geekbrainsdictionary.presenter.Interactor
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class MainInteractor(
+class MainInteractor @Inject constructor(
     private val remoteRepository: Repository<List<DataModel>>,
     private val localRepository: Repository<List<DataModel>>
 ) : Interactor<AppState> {
