@@ -13,12 +13,9 @@ abstract class BaseViewModel<T : AppState>(
     protected val schedulerProvider: ISchedulerProvider = SchedulerProvider()
 ) : ViewModel() {
 
-    protected val compositeDisposable = CompositeDisposable()
-
     fun getStateLiveData(): LiveData<T> = stateLiveData
 
     override fun onCleared() {
-        compositeDisposable.clear()
     }
 
 }

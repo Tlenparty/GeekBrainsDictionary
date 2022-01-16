@@ -3,34 +3,26 @@ package com.geekbrains.geekbrainsdictionary.view.main
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.geekbrainsdictionary.R
 import com.geekbrains.geekbrainsdictionary.databinding.AcMainBinding
-import com.geekbrains.geekbrainsdictionary.di.ViewModelFactory
 import com.geekbrains.geekbrainsdictionary.model.data.AppState
 import com.geekbrains.geekbrainsdictionary.view.base.BaseActivity
 import com.geekbrains.geekbrainsdictionary.view.base.View
 import com.geekbrains.geekbrainsdictionary.view.main.adapter_list.MainAdapter
 import com.geekbrains.geekbrainsdictionary.view.search.SearchDialogFragment
-import dagger.android.AndroidInjection
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<AppState>(), View {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: AcMainBinding
     private var adapter: MainAdapter? = null
 
     // Создаем модель
-    override val model: MainViewModel by lazy {
-        viewModelFactory.create(MainViewModel::class.java)
-    }
+    override val model: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         binding = AcMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

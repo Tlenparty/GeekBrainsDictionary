@@ -8,40 +8,33 @@ import com.geekbrains.geekbrainsdictionary.model.repository.RepositoryImplementa
 import com.geekbrains.geekbrainsdictionary.presenter.Interactor
 import com.geekbrains.geekbrainsdictionary.view.viewmodel.BaseViewModel
 import io.reactivex.observers.DisposableObserver
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import java.lang.Exception
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
+class MainViewModel(
     private val interactor: MainInteractor
 ) : BaseViewModel<AppState>() {
+
+    // По дефолту запускаем корутину на Main потоке
+    private val viewModelScope = CoroutineScope(
+        Dispatchers.Main + SupervisorJob()
+    )
 
     // Когда вью подписывается на liveData запускем Rx-ое получение данных из интрактора
     // И подписываемся в getObserver()
     fun getWordDescriptions(word: String, isOnline: Boolean) {
-        compositeDisposable.add(
-            interactor.getData(word, isOnline)
-                .subscribeOn(schedulerProvider.io) // получаем данные (getData на io)
-                .observeOn(schedulerProvider.ui) // все что ниже на ui thread
-                .doOnSubscribe {
-                    stateLiveData.value = AppState.Loading(null)
-                } // Выполняется в самом начале
-                .subscribeWith(getObserver())
-        )
-    }
-
-    private fun getObserver() = object : DisposableObserver<AppState>() {
-        // Данные успешно загружены; сохраняем их и передаем во View (через
-        // LiveData). View сама разберётся, как их отображать
-        override fun onNext(appState: AppState) {
-            stateLiveData.value = appState
+        viewModelScope.launch {
+            try {
+                val data = interactor.getData(word, isOnline)
+                stateLiveData.value = data
+            } catch (e: Exception) {
+                stateLiveData.value = AppState.Error(e)
+            }
         }
-
-        // В случае ошибки передаём её в Activity таким же образом через LiveData
-        override fun onError(e: Throwable) {
-            stateLiveData.value = AppState.Error(e)
-        }
-
-        override fun onComplete() = Unit
-
     }
 
 }

@@ -12,14 +12,14 @@ import com.geekbrains.geekbrainsdictionary.view.viewmodel.BaseViewModel
 
 abstract class BaseActivity<T : AppState> : AppCompatActivity() {
 
+    // В каждой Активити будет своя ViewModel, которая наследуется от BaseViewModel
+    protected abstract val model: BaseViewModel<T>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // подписка на liveData
         model.getStateLiveData().observe(this) { renderData(it) }
     }
-
-    // В каждой Активити будет своя ViewModel, которая наследуется от BaseViewModel
-    abstract val model: BaseViewModel<T>
 
     // Каждая Активити будет отображать какие-то данные в соответствующем состоянии
     abstract fun renderData(appState: T)
