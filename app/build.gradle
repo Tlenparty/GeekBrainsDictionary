@@ -37,7 +37,7 @@ android {
     }
 }
 
-/*
+
 ext {
     appCompatVersion = '3.4.0'
     coroutinesVerson = '1.5.1'
@@ -51,7 +51,7 @@ ext {
     roomVersion = '2.4.0-alpha04'
     glideVersion = '4.11.0'
 }
-*/
+
 
 dependencies {
     // Kotlin
@@ -79,12 +79,11 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.35.1'
     kapt 'com.google.dagger:dagger-android-processor:2.35.1'
     kapt 'com.google.dagger:dagger-compiler:2.35.1'
-/*
 
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVerson"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVerson"
-
+/*
     //Glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"
 
