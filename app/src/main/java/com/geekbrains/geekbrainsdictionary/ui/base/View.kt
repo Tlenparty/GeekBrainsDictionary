@@ -1,4 +1,4 @@
-package com.geekbrains.geekbrainsdictionary.view.base
+package com.geekbrains.geekbrainsdictionary.ui.base
 
 import com.geekbrains.geekbrainsdictionary.model.data.AppState
 

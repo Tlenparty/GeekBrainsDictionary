@@ -1,10 +1,11 @@
-package com.geekbrains.geekbrainsdictionary.view.base
+package com.geekbrains.geekbrainsdictionary.ui.base
 
+import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.getSystemService
 import com.geekbrains.geekbrainsdictionary.model.data.AppState
-import com.geekbrains.geekbrainsdictionary.presenter.Presenter
-import com.geekbrains.geekbrainsdictionary.view.viewmodel.BaseViewModel
+import com.geekbrains.geekbrainsdictionary.ui.viewmodel.BaseViewModel
 
 /**
  * Базовая View. Часть функционала каждого экрана будет общей (например, создание презентера),

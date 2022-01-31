@@ -1,6 +1,4 @@
-package com.geekbrains.geekbrainsdictionary.presenter
-
-import io.reactivex.Observable
+package com.geekbrains.geekbrainsdictionary.interactor
 
 
 // Слой для бизнес-логики

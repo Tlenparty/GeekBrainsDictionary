@@ -1,4 +1,4 @@
-package com.geekbrains.geekbrainsdictionary.view.main.adapter_list
+package com.geekbrains.geekbrainsdictionary.ui.main.adapter_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

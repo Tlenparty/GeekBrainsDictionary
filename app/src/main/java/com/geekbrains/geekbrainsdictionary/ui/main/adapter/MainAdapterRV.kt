@@ -1,4 +1,4 @@
-package com.geekbrains.geekbrainsdictionary.view.main.adapter
+package com.geekbrains.geekbrainsdictionary.ui.main.adapter
 
 /*
 

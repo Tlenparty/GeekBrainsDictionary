@@ -3,9 +3,7 @@ package com.geekbrains.geekbrainsdictionary.interactor.main
 import com.geekbrains.geekbrainsdictionary.model.data.AppState
 import com.geekbrains.geekbrainsdictionary.model.data.DataModel
 import com.geekbrains.geekbrainsdictionary.model.repository.Repository
-import com.geekbrains.geekbrainsdictionary.presenter.Interactor
-import io.reactivex.Observable
-import javax.inject.Inject
+import com.geekbrains.geekbrainsdictionary.interactor.Interactor
 
 class MainInteractor(
     private val remoteRepository: Repository<List<DataModel>>,

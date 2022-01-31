@@ -1,15 +1,12 @@
 package com.geekbrains.geekbrainsdictionary.di
 
 import com.geekbrains.geekbrainsdictionary.interactor.main.MainInteractor
-import com.geekbrains.geekbrainsdictionary.model.data.AppState
 import com.geekbrains.geekbrainsdictionary.model.data.DataModel
 import com.geekbrains.geekbrainsdictionary.model.datasource.DataSource
-import com.geekbrains.geekbrainsdictionary.model.datasource.remote.DataSourceRemote
 import com.geekbrains.geekbrainsdictionary.model.datasource.remote.RetrofitImplementation
 import com.geekbrains.geekbrainsdictionary.model.repository.Repository
 import com.geekbrains.geekbrainsdictionary.model.repository.RepositoryImplementation
-import com.geekbrains.geekbrainsdictionary.presenter.Interactor
-import com.geekbrains.geekbrainsdictionary.view.main.MainViewModel
+import com.geekbrains.geekbrainsdictionary.ui.main.MainViewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 

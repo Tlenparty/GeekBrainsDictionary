@@ -1,4 +1,4 @@
-package com.geekbrains.geekbrainsdictionary.view.viewmodel
+package com.geekbrains.geekbrainsdictionary.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.geekbrains.geekbrainsdictionary.model.data.AppState
 import com.geekbrains.geekbrainsdictionary.rx.ISchedulerProvider
 import com.geekbrains.geekbrainsdictionary.rx.SchedulerProvider
-import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel<T : AppState>(
     protected val stateLiveData: MutableLiveData<T> = MutableLiveData(),

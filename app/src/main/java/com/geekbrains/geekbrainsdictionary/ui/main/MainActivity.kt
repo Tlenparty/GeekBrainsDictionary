@@ -1,4 +1,4 @@
-package com.geekbrains.geekbrainsdictionary.view.main
+package com.geekbrains.geekbrainsdictionary.ui.main
 
 import android.os.Bundle
 import android.view.View.GONE
@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.geekbrainsdictionary.R
 import com.geekbrains.geekbrainsdictionary.databinding.AcMainBinding
 import com.geekbrains.geekbrainsdictionary.model.data.AppState
-import com.geekbrains.geekbrainsdictionary.view.base.BaseActivity
-import com.geekbrains.geekbrainsdictionary.view.base.View
-import com.geekbrains.geekbrainsdictionary.view.main.adapter_list.MainAdapter
-import com.geekbrains.geekbrainsdictionary.view.search.SearchDialogFragment
+import com.geekbrains.geekbrainsdictionary.ui.base.BaseActivity
+import com.geekbrains.geekbrainsdictionary.ui.base.View
+import com.geekbrains.geekbrainsdictionary.ui.description.DescriptionActivity
+import com.geekbrains.geekbrainsdictionary.ui.main.adapter_list.MainAdapter
+import com.geekbrains.geekbrainsdictionary.ui.search.SearchDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import javax.inject.Inject
 
 class MainActivity : BaseActivity<AppState>(), View {
 
@@ -39,7 +39,17 @@ class MainActivity : BaseActivity<AppState>(), View {
         }
 
         binding.mainActivityRecyclerview.layoutManager = LinearLayoutManager(applicationContext)
-        adapter = MainAdapter { }
+        adapter = MainAdapter {
+            startActivity(
+                DescriptionActivity.getIntent(
+                    this,
+                    word = it.text.orEmpty(),
+                    // joinToString() каждый элемент отображает черезх , (сепаратор)
+                    description = it.meaning?.joinToString { it.translation?.translation.orEmpty() }.orEmpty(),
+                    imageUrl = it.meaning?.firstOrNull()?.imageUrl
+                )
+            )
+        }
         binding.mainActivityRecyclerview.adapter = adapter
     }
 

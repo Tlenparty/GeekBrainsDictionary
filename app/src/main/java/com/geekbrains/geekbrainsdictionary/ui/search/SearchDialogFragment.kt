@@ -1,4 +1,4 @@
-package com.geekbrains.geekbrainsdictionary.view.search
+package com.geekbrains.geekbrainsdictionary.ui.search
 
 import android.os.Bundle
 import android.text.Editable
