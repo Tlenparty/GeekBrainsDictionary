@@ -1,3 +1,12 @@
+import org.gradle.api.JavaVersion
+
+object Config {
+    const val compileSdk = 31
+    const val minSkd = 23
+    const val targetSdk = 31
+     val javaVersion = JavaVersion.VERSION_1_8
+}
+
 object Versions {
     const val retrofit = "2.9.0"
     const val okHttpVersion = "4.9.2"
@@ -15,8 +24,10 @@ object Versions {
 object Retrofit {
     const val Retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val ConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
-    const val LoginInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttpVersion}"
-    const val RxJavaAdapter = "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${Versions.rxJavaAdapterVersion}"
+    const val LoginInterceptor =
+        "com.squareup.okhttp3:logging-interceptor:${Versions.okHttpVersion}"
+    const val RxJavaAdapter =
+        "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${Versions.rxJavaAdapterVersion}"
 }
 
 object Android {
