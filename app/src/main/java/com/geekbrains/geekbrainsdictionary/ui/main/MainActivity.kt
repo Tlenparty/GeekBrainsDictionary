@@ -1,6 +1,8 @@
 package com.geekbrains.geekbrainsdictionary.ui.main
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +12,7 @@ import com.geekbrains.geekbrainsdictionary.model.data.AppState
 import com.geekbrains.geekbrainsdictionary.ui.base.BaseActivity
 import com.geekbrains.geekbrainsdictionary.ui.base.View
 import com.geekbrains.geekbrainsdictionary.ui.description.DescriptionActivity
+import com.geekbrains.geekbrainsdictionary.ui.history.HistoryActivity
 import com.geekbrains.geekbrainsdictionary.ui.main.adapter_list.MainAdapter
 import com.geekbrains.geekbrainsdictionary.ui.search.SearchDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -51,6 +54,20 @@ class MainActivity : BaseActivity<AppState>(), View {
             )
         }
         binding.mainActivityRecyclerview.adapter = adapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.historyItem -> {
+                startActivity(HistoryActivity.createIntent(this))
+                true
+            } else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun renderData(appState: AppState) {

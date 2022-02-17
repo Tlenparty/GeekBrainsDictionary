@@ -1,16 +1,16 @@
-package com.geekbrains.geekbrainsdictionary.model.datasource.remote
+package com.geekbrains.geekbrainsdictionary.data.remote
 
 import com.geekbrains.geekbrainsdictionary.model.data.DataModel
 import com.geekbrains.geekbrainsdictionary.model.datasource.DataSource
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-class RetrofitImplementation : DataSource<List<DataModel>> {
+class RetrofitImplementation :
+    DataSource<List<DataModel>> {
 
     override suspend fun getData(word: String): List<DataModel> {
        return createRetrofit().create<ApiService>().search(word)

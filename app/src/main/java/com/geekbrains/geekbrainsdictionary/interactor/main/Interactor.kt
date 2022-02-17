@@ -1,4 +1,4 @@
-package com.geekbrains.geekbrainsdictionary.interactor
+package com.geekbrains.geekbrainsdictionary.interactor.main
 
 
 // Слой для бизнес-логики

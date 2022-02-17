@@ -2,7 +2,7 @@ package com.geekbrains.geekbrainsdictionary.ui.main
 
 import com.geekbrains.geekbrainsdictionary.interactor.main.MainInteractor
 import com.geekbrains.geekbrainsdictionary.model.data.AppState
-import com.geekbrains.geekbrainsdictionary.ui.viewmodel.BaseViewModel
+import com.geekbrains.geekbrainsdictionary.ui.base.BaseViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

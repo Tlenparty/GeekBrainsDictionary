@@ -1,7 +1,6 @@
-package com.geekbrains.geekbrainsdictionary.model.datasource.remote
+package com.geekbrains.geekbrainsdictionary.data.remote
 
 import com.geekbrains.geekbrainsdictionary.model.data.DataModel
-import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 

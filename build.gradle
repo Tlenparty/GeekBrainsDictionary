@@ -1,3 +1,14 @@
+ext {
+    versions = [
+            retrofit_version: "2.9.0"
+    ]
+
+    libs = [
+            retrofit: "com.squareup.retrofit2:retrofit:${versions.retrofit_version}"
+    ]
+}
+
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {

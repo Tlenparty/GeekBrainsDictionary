@@ -1,4 +1,4 @@
-package com.geekbrains.geekbrainsdictionary.ui.viewmodel
+package com.geekbrains.geekbrainsdictionary.ui.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
